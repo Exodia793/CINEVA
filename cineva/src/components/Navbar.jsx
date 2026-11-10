@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { colors } from "../theme";
 import { APP_NAME, APP_TAGLINE } from "../constants";
+import { useAuth } from "../context/AuthContext";
 
 const menus = [
   { label: "Beranda", to: "/" },
@@ -17,6 +18,14 @@ const menus = [
 ];
 
 function Navbar() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <AppBar
       position="sticky"
@@ -83,6 +92,34 @@ function Navbar() {
               </Button>
             ))}
           </Box>
+
+          {user ? (
+            <Box
+              sx={{ display: "flex", alignItems: "center", gap: 1.5, ml: 3 }}
+            >
+              <Typography variant="body2" color="text.secondary">
+                Halo, {user.name}
+              </Typography>
+              <Button
+                size="small"
+                variant="outlined"
+                color="inherit"
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+            </Box>
+          ) : (
+            <Button
+              size="small"
+              variant="contained"
+              component={NavLink}
+              to="/login"
+              sx={{ ml: 3 }}
+            >
+              Login
+            </Button>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

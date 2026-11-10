@@ -1,20 +1,22 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
-import CssBaseline from "@mui/material/CssBaseline";
-import theme from "./theme.js";
-import { ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter } from "react-router-dom";
-import { WatchlistProvider } from "./context/WatchlistContext.jsx";
+import { ThemeProvider, CssBaseline } from "@mui/material";
+import theme from "./theme";
+import { AuthProvider } from "./context/AuthContext";
+import { WatchlistProvider } from "./context/WatchlistContext";
+import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <WatchlistProvider>
-          <App />
-        </WatchlistProvider>
+        <AuthProvider>
+          <WatchlistProvider>
+            <App />
+          </WatchlistProvider>
+        </AuthProvider>
       </ThemeProvider>
     </BrowserRouter>
   </StrictMode>,

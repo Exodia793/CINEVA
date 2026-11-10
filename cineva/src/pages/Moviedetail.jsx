@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { Container, Typography, Grid, Box, Button } from "@mui/material";
 import MoviePoster from "../components/MoviePoster";
 import MovieInfo from "../components/MovieInfo";
@@ -6,11 +6,15 @@ import CastList from "../components/CastList";
 import FavoriteButton from "../components/FavoriteButton";
 import movies from "../data/movies";
 import { useWatchlist } from "../context/WatchlistContext";
+import { useAuth } from "../context/AuthContext";
 
 function MovieDetail() {
   const { id } = useParams();
   const movieDetail = movies.find((m) => m.id === Number(id));
   const { isFavorite, onAddFavorite, onRemoveFavorite } = useWatchlist();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   if (!movieDetail) {
     return (
@@ -28,6 +32,11 @@ function MovieDetail() {
   const favorite = isFavorite(movieDetail.id);
 
   const handleToggle = () => {
+    if (!user) {
+      navigate("/login", { state: { from: location } });
+      return;
+    }
+
     if (favorite) {
       onRemoveFavorite(movieDetail.id);
     } else {
