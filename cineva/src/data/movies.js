@@ -111,7 +111,7 @@ const movies = [
     duration: "101 menit",
     director: "Gareth Evans",
     cast: ["Iko Uwais", "Joe Taslim", "Donny Alamsyah"],
-    trailerUrl: "https://www.youtube.com/watch?v=m6Q7KnXpNOg",
+    trailerUrl: "",
   },
 ];
 
