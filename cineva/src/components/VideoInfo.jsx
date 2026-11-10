@@ -27,10 +27,7 @@ function VideoInfo({ movie }) {
         color="text.secondary"
         display="block"
         sx={{ mt: 3 }}
-      >
-        Trailer ditampilkan melalui pemutar resmi YouTube. Hak cipta trailer dan
-        film milik pemiliknya masing-masing.
-      </Typography>
+      ></Typography>
     </Box>
   );
 }
