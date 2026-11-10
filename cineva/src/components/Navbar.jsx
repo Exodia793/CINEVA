@@ -64,7 +64,21 @@ function Navbar() {
 
           <Box sx={{ display: "flex", gap: 1 }}>
             {menus.map((m) => (
-              <Button key={m.to} color="inherit" component={NavLink} to={m.to}>
+              <Button
+                key={m.to}
+                color="inherit"
+                component={NavLink}
+                to={m.to}
+                sx={{
+                  color: "text.secondary",
+                  borderRadius: 0,
+                  borderBottom: "2px solid transparent",
+                  "&.active": {
+                    color: "text.primary",
+                    borderBottomColor: colors.accent,
+                  },
+                }}
+              >
                 {m.label}
               </Button>
             ))}
