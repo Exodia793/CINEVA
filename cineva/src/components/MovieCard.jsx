@@ -21,7 +21,7 @@ function MovieCard({ movie }) {
           component="img"
           image={movie.poster}
           alt={movie.title}
-          sx={{ aspectRatio: "2 / 3", objectFit: "cover" }}
+          sx={{ aspectRatio: "3 / 4", objectFit: "cover" }}
         />
         <CardContent>
           <Typography variant="subtitle1" fontWeight={600} noWrap>
