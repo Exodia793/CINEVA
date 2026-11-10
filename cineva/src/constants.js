@@ -1,0 +1,2 @@
+export const APP_NAME = "CINÉVA";
+export const APP_TAGLINE = "MOVIE CATALOG & STREAMING PLATFORM";
