@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Container, Typography, Grid, Box, Button } from "@mui/material";
 import MoviePoster from "../components/MoviePoster";
@@ -6,11 +5,12 @@ import MovieInfo from "../components/MovieInfo";
 import CastList from "../components/CastList";
 import FavoriteButton from "../components/FavoriteButton";
 import movies from "../data/movies";
+import { useWatchlist } from "../context/WatchlistContext";
 
 function MovieDetail() {
   const { id } = useParams();
   const movieDetail = movies.find((m) => m.id === Number(id));
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { isFavorite, onAddFavorite, onRemoveFavorite } = useWatchlist();
 
   if (!movieDetail) {
     return (
@@ -24,6 +24,16 @@ function MovieDetail() {
       </Container>
     );
   }
+
+  const favorite = isFavorite(movieDetail.id);
+
+  const handleToggle = () => {
+    if (favorite) {
+      onRemoveFavorite(movieDetail.id);
+    } else {
+      onAddFavorite(movieDetail.id);
+    }
+  };
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -47,10 +57,7 @@ function MovieDetail() {
             >
               Tonton Trailer
             </Button>
-            <FavoriteButton
-              isFavorite={isFavorite}
-              onToggle={() => setIsFavorite(!isFavorite)}
-            />
+            <FavoriteButton isFavorite={favorite} onToggle={handleToggle} />
           </Box>
         </Grid>
       </Grid>
